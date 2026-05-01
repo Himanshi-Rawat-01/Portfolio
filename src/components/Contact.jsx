@@ -40,10 +40,10 @@ function Contact({ links }) {
   return (
     <div className="section-block contact">
       <motion.div className="section-heading" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <motion.h2 variants={fadeUp}>Let&apos;s Build Something Useful Together</motion.h2>
+        <motion.h2 variants={fadeUp}>Got an Idea? Let&apos;s Bring It to Life.</motion.h2>
         <motion.p className="contact__intro" variants={fadeUp}>
-          Reach out for frontend development, UI/UX work, full-stack integration, or data-driven web
-          projects. I&apos;m open to freelance and full-time opportunities.
+          I&apos;m always excited to collaborate on innovative projects and digital experiences. 
+          Whether you have a specific vision or just want to explore what&apos;s possible, let&apos;s start a conversation.
         </motion.p>
       </motion.div>
 
@@ -121,7 +121,7 @@ function Contact({ links }) {
             whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
             whileTap={{ scale: 0.97 }}
           >
-            Send Message
+            Let&apos;s Talk
             <FiArrowRight />
           </motion.button>
 
