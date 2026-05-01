@@ -4,6 +4,8 @@ import LiquidEther from './components/LiquidEther';
 import ScrollProgress from './components/ScrollProgress';
 import ThemeToggle from './components/ThemeToggle';
 import HomePage from './pages/HomePage';
+import SectionScroller from './components/SectionScroller';
+import Lenis from 'lenis';
 
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio-theme') || 'dark');
@@ -34,6 +36,27 @@ function App() {
     const onChange = (event) => setPrefersReducedMotion(event.matches);
     mediaQuery.addEventListener('change', onChange);
     return () => mediaQuery.removeEventListener('change', onChange);
+  }, []);
+
+  // Expose a global Lenis instance for SectionScroller to use
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.4,
+      easing: t => 1 - Math.pow(1 - t, 4),
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      syncTouch: false,
+    });
+    window.__lenis__ = lenis;
+    let raf;
+    const loop = (time) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      lenis.destroy();
+      window.__lenis__ = null;
+    };
   }, []);
 
   const liquidColors = useMemo(() => ['#5227FF', '#FF9FFC', '#B19EEF'], []);
@@ -101,6 +124,7 @@ function App() {
         theme={theme}
         toggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
       />
+      <SectionScroller />
       <HomePage theme={theme} />
       <CustomCursor />
     </>
