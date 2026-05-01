@@ -5,7 +5,7 @@ function Experience({ experience }) {
   return (
     <div className="section-block">
       <div className="section-heading" style={{ textAlign: "center", marginBottom: "0rem" }}>
-        <h2 style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "0rem" }}>Experience</h2>
+        <h2 className="reveal-heading" style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "0rem" }}>Experience</h2>
       </div>
 
       <div className="experience-stack-wrapper" style={{ minHeight: '180vh', position: 'relative' }}>

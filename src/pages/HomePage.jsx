@@ -10,12 +10,17 @@ import Contact from '../components/Contact';
 import { contactLinks, experienceTimeline, projects, services } from '../data/portfolioData';
 
 const sectionTransition = {
-  hidden: { opacity: 0, y: 26, filter: 'blur(6px)' },
+  hidden: { 
+    opacity: 0, 
+    y: 50,
+  },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { 
+      duration: 0.9, 
+      ease: [0.16, 1, 0.3, 1],
+    },
   },
 };
 

@@ -88,6 +88,8 @@ img {
 #root {
   position: relative;
   min-height: 100vh;
+  /* Isolate root from layout changes of children */
+  isolation: isolate;
 }
 
 .app-background {
@@ -126,6 +128,8 @@ img {
   width: min(100%, var(--container-width));
   margin: 0 auto;
   padding: 0 1.25rem 4rem;
+  /* Promote to own layer - prevents scroll from triggering repaints */
+  transform: translateZ(0);
 }
 
 .container {
@@ -203,6 +207,7 @@ img {
 .section-block {
   display: grid;
   gap: clamp(1.4rem, 2.8vw, 2.25rem);
+  contain: layout style; /* Isolate reflows within sections */
 }
 
 .section-heading {
@@ -211,6 +216,18 @@ img {
   max-width: 50rem;
   text-align: center;
   margin: 0 auto;
+  perspective: 1000px;
+}
+
+.section-heading h2 {
+  animation: revealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+@keyframes revealText {
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 .projects-section {
@@ -1302,3 +1319,9 @@ img {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
 }
+/* -- Animations -- */
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.floating { animation: float 4s ease-in-out infinite; }
+@keyframes revealText { from { opacity: 0; transform: translateY(30px) rotateX(-20deg); filter: blur(8px); } to { opacity: 1; transform: translateY(0) rotateX(0deg); filter: blur(0px); } }
+.reveal-heading { animation: revealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.intro-splash__scroll-hint { position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%); display: grid; gap: 0.5rem; justify-items: center; z-index: 10; }

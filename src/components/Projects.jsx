@@ -46,7 +46,7 @@ function Projects({ projects }) {
       />
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="section-heading">
-          <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", marginBottom: '0' }}>Featured Projects</h2>
+          <h2 className="reveal-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", marginBottom: '0' }}>Featured Projects</h2>
         </div>
       </div>
 

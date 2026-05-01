@@ -24,6 +24,20 @@ function IntroSplash({ sectionRef }) {
         >
           <p className="intro-splash__kicker">Welcome to my</p>
           <h1 className="intro-splash__title">Portfolio</h1>
+          
+          <motion.div 
+            className="intro-splash__scroll-hint"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+          >
+            <motion.div 
+              className="scroll-hint-line"
+              animate={{ height: ['0px', '40px', '0px'], y: [0, 10, 20] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              style={{ width: '2px', background: 'var(--accent)', margin: '0 auto' }}
+            />
+          </motion.div>
         </motion.div>
       </div>
     </section>
