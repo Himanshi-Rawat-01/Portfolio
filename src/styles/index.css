@@ -88,8 +88,6 @@ img {
 #root {
   position: relative;
   min-height: 100vh;
-  /* Isolate root from layout changes of children */
-  isolation: isolate;
 }
 
 .app-background {
@@ -128,8 +126,6 @@ img {
   width: min(100%, var(--container-width));
   margin: 0 auto;
   padding: 0 1.25rem 4rem;
-  /* Promote to own layer - prevents scroll from triggering repaints */
-  transform: translateZ(0);
 }
 
 .container {
@@ -207,7 +203,6 @@ img {
 .section-block {
   display: grid;
   gap: clamp(1.4rem, 2.8vw, 2.25rem);
-  contain: layout style; /* Isolate reflows within sections */
 }
 
 .section-heading {
@@ -220,14 +215,12 @@ img {
 }
 
 .section-heading h2 {
-  animation: revealText 1.0s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
+  animation: revealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes revealText {
-  from { opacity: 0; transform: translate3d(0, 28px, 0); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  from { opacity: 0; transform: translateY(30px) rotateX(-20deg); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg); filter: blur(0px); }
 }
 
 .projects-section {
@@ -257,7 +250,8 @@ img {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  transition: border-color 240ms ease, box-shadow 240ms ease, background 240ms ease;
+  transition: border-color 300ms ease, box-shadow 300ms ease, background 300ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
 }
 
 :root[data-perf='low'] .card {
@@ -271,8 +265,9 @@ img {
 }
 
 .card:hover {
-  border-color: rgba(130, 171, 255, 0.34);
-  box-shadow: 0 22px 64px rgba(8, 12, 24, 0.36);
+  border-color: rgba(130, 171, 255, 0.4);
+  box-shadow: 0 28px 72px rgba(8, 12, 24, 0.45);
+  transform: translateY(-4px);
 }
 
 .button {
@@ -283,11 +278,12 @@ img {
   min-height: 3.4rem;
   padding: 0.95rem 1.35rem;
   border-radius: 999px;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 280ms ease, background 280ms ease;
+  will-change: transform;
 }
 
 .button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
 }
 
 .button--primary {

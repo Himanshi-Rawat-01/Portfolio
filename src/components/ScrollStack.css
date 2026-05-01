@@ -18,20 +18,22 @@
 
 .scroll-stack-card {
   transform-origin: top center;
-  will-change: transform;
+  will-change: transform, filter;
   backface-visibility: hidden;
+  transform-style: preserve-3d;
   width: 100%;
   margin: 20px 0;
   padding: 3rem 2.5rem;
   border-radius: 28px;
   box-sizing: border-box;
+  -webkit-transform: translateZ(0);
   transform: translateZ(0);
   position: relative;
-  contain: layout style;
   
-  /* Portfolio Theme - no backdrop-filter to avoid paint cost */
-  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  /* Portfolio Theme integration */
+  background: var(--surface);
   border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
   box-shadow: var(--shadow-card);
 }
 
