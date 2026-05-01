@@ -36,29 +36,29 @@ function HomePage({ theme }) {
       <IntroSplash />
 
       <motion.main key={theme} className="app-shell" initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-        <motion.section id="about" className="section" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+        <motion.section id="about" className="section" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.4 }}>
           <About />
         </motion.section>
 
-        <motion.section className="section section-marquee" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.25 }}>
+        <motion.section className="section section-marquee" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.4 }}>
           <SkillMarquee />
         </motion.section>
 
-        <motion.section id="services" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+        <motion.section id="services" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
           <Services services={services} />
         </motion.section>
       </motion.main>
 
-      <motion.section id="projects" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
+      <motion.section id="projects" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }}>
         <Projects projects={projects} />
       </motion.section>
 
       <motion.main initial={false} animate={{ opacity: 1 }} className="app-shell" style={{ paddingTop: 0 }}>
-        <motion.section id="experience" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+        <motion.section id="experience" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
           <Experience experience={experienceTimeline} />
         </motion.section>
 
-        <motion.section id="contact" className="section section-contact" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+        <motion.section id="contact" className="section section-contact" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
           <Contact links={contactLinks} />
         </motion.section>
       </motion.main>
