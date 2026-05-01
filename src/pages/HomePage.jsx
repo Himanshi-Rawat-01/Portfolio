@@ -8,7 +8,7 @@ import Projects from '../components/Projects';
 import Experience from '../components/Experience';
 import CtaBanner from '../components/CtaBanner';
 import Contact from '../components/Contact';
-import { contactLinks, experienceTimeline, marqueeSkills, projects, services } from '../data/portfolioData';
+import { contactLinks, experienceTimeline, projects, services } from '../data/portfolioData';
 
 const sectionTransition = {
   hidden: { opacity: 0, y: 26, filter: 'blur(6px)' },
@@ -32,17 +32,19 @@ function HomePage({ theme }) {
         </motion.section>
 
         <motion.section className="section section-marquee" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.35 }}>
-          <SkillMarquee items={marqueeSkills} />
+          <SkillMarquee />
         </motion.section>
 
         <motion.section id="services" className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Services services={services} />
         </motion.section>
+      </motion.main>
 
-        <motion.section id="projects" className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
-          <Projects projects={projects} />
-        </motion.section>
+      <motion.section id="projects" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }}>
+        <Projects projects={projects} />
+      </motion.section>
 
+      <motion.main initial={false} animate={{ opacity: 1 }} className="app-shell" style={{ paddingTop: 0 }}>
         <motion.section id="experience" className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Experience experience={experienceTimeline} />
         </motion.section>

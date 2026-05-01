@@ -39,7 +39,6 @@ function Contact({ links }) {
   return (
     <div className="section-block contact">
       <div className="section-heading">
-        <span className="eyebrow">Contact</span>
         <h2>Let&apos;s Build Something Useful Together</h2>
         <p className="contact__intro">
           Reach out for frontend development, UI/UX work, full-stack integration, or data-driven web

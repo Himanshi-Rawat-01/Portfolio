@@ -43,9 +43,9 @@ function App() {
         return {
           mouseForce: 8,
           cursorSize: 58,
-          iterationsViscous: 6,
-          iterationsPoisson: 6,
-          resolution: 0.2,
+          iterationsViscous: 4,
+          iterationsPoisson: 4,
+          resolution: 0.15,
           autoIntensity: 0.85,
           autoDemo: false,
           autoSpeed: 0.35,
@@ -56,9 +56,9 @@ function App() {
         return {
           mouseForce: 10,
           cursorSize: 66,
-          iterationsViscous: 8,
-          iterationsPoisson: 8,
-          resolution: 0.25,
+          iterationsViscous: 6,
+          iterationsPoisson: 6,
+          resolution: 0.2,
           autoIntensity: 1.05,
           autoDemo: true,
           autoSpeed: 0.4,
@@ -68,9 +68,9 @@ function App() {
       return {
         mouseForce: 14,
         cursorSize: 80,
-        iterationsViscous: 10,
+        iterationsViscous: 8,
         iterationsPoisson: 10,
-        resolution: 0.3,
+        resolution: 0.25,
         autoIntensity: 1.25,
         autoDemo: true,
         autoSpeed: 0.45,
@@ -97,12 +97,12 @@ function App() {
         />
       </div>
       <ScrollProgress />
-      <CustomCursor />
       <ThemeToggle
         theme={theme}
         toggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
       />
       <HomePage theme={theme} />
+      <CustomCursor />
     </>
   );
 }

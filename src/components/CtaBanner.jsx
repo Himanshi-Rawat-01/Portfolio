@@ -15,7 +15,6 @@ function CtaBanner() {
       transition={{ duration: 0.65 }}
     >
       <div className="cta-banner__content">
-        <span className="eyebrow">Collaboration</span>
         <h2>Let&apos;s Build Something Useful Together</h2>
         <p>
           I&apos;m open to new opportunities, collaborations, and product ideas where thoughtful

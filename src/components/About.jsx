@@ -168,7 +168,7 @@ function About() {
         <Beams
           beamWidth={3}
           beamHeight={30}
-          beamNumber={12}
+          beamNumber={6}
           lightColor="#ffffff"
           speed={1.5}
           noiseIntensity={1.5}

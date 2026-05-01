@@ -1,8 +1,8 @@
 import { FaCss3Alt, FaHtml5, FaJs, FaPhp, FaPython, FaReact } from 'react-icons/fa';
 import { SiFlask, SiMysql } from 'react-icons/si';
-import aqiDashboardImage from '../assets/projects/aqi-dashboard.svg';
+import aqiDashboardImage from '../assets/projects/aqi-dashboard.png';
 import ecommerceImage from '../assets/projects/ecommerce-website.svg';
-import environmentImage from '../assets/projects/environmental-awareness.svg';
+import environmentImage from '../assets/projects/enviroaware.png';
 import pawImage from '../assets/projects/paw-adoption.svg';
 
 export const navigationLinks = [
@@ -11,28 +11,6 @@ export const navigationLinks = [
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
-];
-
-export const marqueeSkills = [
-  'React',
-  'JavaScript',
-  'HTML5',
-  'CSS3',
-  'Python',
-  'PHP',
-  'Flask',
-  'MySQL',
-  'Bootstrap',
-  'UI Design',
-  'UX Strategy',
-  'Responsive Design',
-  'REST APIs',
-  'Data Visualization',
-  'Pandas',
-  'NumPy',
-  'Matplotlib',
-  'Component Architecture',
-  'Git and GitHub',
 ];
 
 export const skillIcons = [
@@ -45,6 +23,7 @@ export const skillIcons = [
   { label: 'Flask', Icon: SiFlask },
   { label: 'MySQL', Icon: SiMysql },
 ];
+
 
 export const services = [
   {

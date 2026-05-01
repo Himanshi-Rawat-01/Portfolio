@@ -4,7 +4,6 @@ function Services({ services }) {
   return (
     <div className="section-block">
       <div className="section-heading">
-        <span className="eyebrow">Services</span>
         <h2>What I Do</h2>
       </div>
 

@@ -1,68 +1,137 @@
-import { motion } from 'framer-motion';
-import { FiArrowUpRight, FiGithub } from 'react-icons/fi';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FiArrowUpRight, FiGithub, FiX } from 'react-icons/fi';
+import CircularGallery from './CircularGallery';
+import GhostCursor from './GhostCursor';
 
 function Projects({ projects }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const galleryItems = projects.map((project) => ({
+    image: project.image,
+    text: project.title,
+  }));
+
+  const handleProjectClick = (item, index) => {
+    setSelectedProject(projects[index]);
+  };
+
   return (
-    <div className="section-block">
-      <div className="section-heading">
-        <span className="eyebrow">Projects</span>
-        <h2>Featured Projects</h2>
+    <div className="section-block projects-section card" style={{ padding: '4rem 0', overflow: 'hidden', width: '100%', borderRadius: '0', borderWidth: '1px 0', position: 'relative' }}>
+      <GhostCursor
+        color="#B497CF"
+        brightness={2}
+        edgeIntensity={0}
+        trailLength={50}
+        inertia={0.5}
+        grainIntensity={0.05}
+        bloomStrength={0.1}
+        bloomRadius={1}
+        bloomThreshold={0.025}
+        fadeDelayMs={1000}
+        fadeDurationMs={1500}
+        zIndex={1}
+      />
+      <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+        <div className="section-heading">
+          <h2 style={{ marginBottom: '0' }}>Featured Projects</h2>
+        </div>
       </div>
 
-      <div className="projects-grid">
-        {projects.map((project, index) => (
-          <motion.article
-            key={project.title}
-            className="card project-card"
-            initial={{ opacity: 0, y: 26 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -8 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.58, delay: index * 0.08 }}
-          >
-            <div className="project-card__media">
-              <img
-                src={project.image}
-                alt={`${project.title} preview`}
-                loading="lazy"
-                className="project-card__image"
-              />
-            </div>
+      <div className="projects-gallery-container" style={{ height: '500px', position: 'relative', marginTop: '1rem', zIndex: 2 }}>
+          <CircularGallery 
+            items={galleryItems} 
+            bend={3} 
+            textColor="#ffffff" 
+            borderRadius={0.05} 
+            scrollSpeed={1.5}
+            scrollEase={0.03}
+            onClick={handleProjectClick}
+          />
+        </div>
 
-            <div className="project-card__body">
-              <div className="project-card__meta">
-                <span>{project.category}</span>
-                <h3>{project.title}</h3>
+        <AnimatePresence>
+          {selectedProject && (
+            <motion.div 
+              className="project-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div 
+                className="project-modal"
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+              <button 
+                className="project-modal__close" 
+                onClick={() => setSelectedProject(null)}
+                aria-label="Close modal"
+              >
+                <FiX size={20} />
+              </button>
+
+              <div className="project-modal__scroll-area">
+                <div className="project-modal__grid">
+                  <div className="project-modal__image-wrapper">
+                    <img 
+                      src={selectedProject.image} 
+                      alt={selectedProject.title} 
+                      className="project-modal__image"
+                    />
+                  </div>
+
+                  <div className="project-modal__content">
+                    <div className="project-modal__header">
+                      <span>{selectedProject.category}</span>
+                      <h2>{selectedProject.title}</h2>
+                    </div>
+
+                    <p className="project-modal__description">
+                      {selectedProject.description}
+                    </p>
+
+                    <div className="project-modal__tags">
+                      {selectedProject.stack.map((tag) => (
+                        <span key={tag}>{tag}</span>
+                      ))}
+                    </div>
+
+                    <div className="project-modal__actions">
+                      {selectedProject.github && (
+                        <a 
+                          href={selectedProject.github} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="button button--secondary project-link interactive"
+                        >
+                          <FiGithub />
+                          GitHub
+                        </a>
+                      )}
+                      {selectedProject.live && (
+                        <a 
+                          href={selectedProject.live} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="button button--primary project-link interactive"
+                        >
+                          <FiArrowUpRight />
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <p>{project.description}</p>
-
-              <div className="project-card__tags">
-                {project.stack.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-
-              <div className="project-card__actions">
-                {project.github ? (
-                  <a className="project-link interactive" href={project.github} target="_blank" rel="noreferrer">
-                    <FiGithub />
-                    GitHub
-                  </a>
-                ) : null}
-
-                {project.live ? (
-                  <a className="project-link interactive" href={project.live} target="_blank" rel="noreferrer">
-                    <FiArrowUpRight />
-                    Live Demo
-                  </a>
-                ) : null}
-
-              </div>
-            </div>
-          </motion.article>
-        ))}
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
