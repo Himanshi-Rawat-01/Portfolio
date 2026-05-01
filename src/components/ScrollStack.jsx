@@ -26,6 +26,7 @@ const ScrollStack = ({
   const animationFrameRef = useRef(null);
   const lenisRef = useRef(null);
   const cardsRef = useRef([]);
+  const originalOffsetsRef = useRef([]);
   const lastTransformsRef = useRef(new Map());
   const isUpdatingRef = useRef(false);
 
@@ -71,15 +72,14 @@ const ScrollStack = ({
     [useWindowScroll]
   );
 
-  const updateCardTransforms = useCallback(() => {
+  const updateCardTransforms = useCallback((scrollVal) => {
     if (!cardsRef.current.length || isUpdatingRef.current) return;
 
     isUpdatingRef.current = true;
 
-    const { scrollTop, containerHeight } = getScrollData();
-    const stackPositionPx = parsePercentage(stackPosition, containerHeight);
-    const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
-
+    const { containerHeight } = getScrollData();
+    const scrollTop = scrollVal !== undefined ? scrollVal : (useWindowScroll ? window.scrollY : scrollerRef.current.scrollTop);
+    
     const endElement = useWindowScroll
       ? document.querySelector('.scroll-stack-end')
       : scrollerRef.current?.querySelector('.scroll-stack-end');
@@ -89,11 +89,16 @@ const ScrollStack = ({
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
 
-      const cardTop = getElementOffset(card);
+      const cardHeight = card.offsetHeight;
+      // Subtract cardHeight/2 to center the card, and use a slightly higher position (45%) for optical balance
+      const stackPositionPx = parsePercentage(stackPosition, containerHeight) - cardHeight / 2;
+      const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
+      
+      const cardTop = originalOffsetsRef.current[i];
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
-      const pinEnd = endElementTop - containerHeight / 2;
+      const pinEnd = endElementTop - containerHeight / 2 - cardHeight / 2;
 
       const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
       const targetScale = baseScale + i * itemScale;
@@ -127,19 +132,19 @@ const ScrollStack = ({
       }
 
       const newTransform = {
-        translateY: Math.round(translateY * 100) / 100,
-        scale: Math.round(scale * 1000) / 1000,
-        rotation: Math.round(rotation * 100) / 100,
-        blur: Math.round(blur * 100) / 100
+        translateY: translateY,
+        scale: scale,
+        rotation: rotation,
+        blur: blur
       };
 
       const lastTransform = lastTransformsRef.current.get(i);
       const hasChanged =
         !lastTransform ||
-        Math.abs(lastTransform.translateY - newTransform.translateY) > 0.1 ||
-        Math.abs(lastTransform.scale - newTransform.scale) > 0.001 ||
-        Math.abs(lastTransform.rotation - newTransform.rotation) > 0.1 ||
-        Math.abs(lastTransform.blur - newTransform.blur) > 0.1;
+        Math.abs(lastTransform.translateY - newTransform.translateY) > 0.01 ||
+        Math.abs(lastTransform.scale - newTransform.scale) > 0.0001 ||
+        Math.abs(lastTransform.rotation - newTransform.rotation) > 0.01 ||
+        Math.abs(lastTransform.blur - newTransform.blur) > 0.01;
 
       if (hasChanged) {
         const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
@@ -179,8 +184,8 @@ const ScrollStack = ({
     getElementOffset
   ]);
 
-  const handleScroll = useCallback(() => {
-    updateCardTransforms();
+  const handleScroll = useCallback((e) => {
+    updateCardTransforms(e?.scroll);
   }, [updateCardTransforms]);
 
   const setupLenis = useCallback(() => {
@@ -253,6 +258,9 @@ const ScrollStack = ({
     );
 
     cardsRef.current = cards;
+    // Cache original offsets before any transforms are applied
+    originalOffsetsRef.current = cards.map(card => getElementOffset(card));
+    
     const transformsCache = lastTransformsRef.current;
 
     cards.forEach((card, i) => {

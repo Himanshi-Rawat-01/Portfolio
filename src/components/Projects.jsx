@@ -17,7 +17,19 @@ function Projects({ projects }) {
   };
 
   return (
-    <div className="section-block projects-section card" style={{ padding: '4rem 0', overflow: 'hidden', width: '100%', borderRadius: '0', borderWidth: '1px 0', position: 'relative' }}>
+    <div 
+      className="section-block projects-section card" 
+      style={{ 
+        padding: '6rem 0', 
+        overflow: 'hidden', 
+        width: '100%', 
+        borderRadius: '0', 
+        border: 'none',
+        position: 'relative',
+        maskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)'
+      }}
+    >
       <GhostCursor
         color="#B497CF"
         brightness={2}
@@ -34,7 +46,7 @@ function Projects({ projects }) {
       />
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
         <div className="section-heading">
-          <h2 style={{ marginBottom: '0' }}>Featured Projects</h2>
+          <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", marginBottom: '0' }}>Featured Projects</h2>
         </div>
       </div>
 

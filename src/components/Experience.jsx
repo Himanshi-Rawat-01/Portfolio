@@ -4,19 +4,18 @@ import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 function Experience({ experience }) {
   return (
     <div className="section-block">
-      <div className="section-heading" style={{ textAlign: "center", marginBottom: "4rem" }}>
-        <span className="eyebrow" style={{ color: "var(--accent)", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", fontSize: "0.8rem" }}>Journey</span>
-        <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", marginTop: "0.5rem" }}>Experience</h2>
+      <div className="section-heading" style={{ textAlign: "center", marginBottom: "0rem" }}>
+        <h2 style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "0rem" }}>Experience</h2>
       </div>
 
       <div className="experience-stack-wrapper" style={{ minHeight: '250vh', position: 'relative' }}>
         <ScrollStack 
           useWindowScroll={true} 
-          itemDistance={150} 
-          itemScale={0.05} 
-          itemStackDistance={20}
-          stackPosition="50%"
-          baseScale={0.94}
+          itemDistance={200} 
+          itemScale={0.06} 
+          itemStackDistance={15}
+          stackPosition="45%"
+          baseScale={0.92}
         >
           {experience.map((item, index) => (
             <ScrollStackItem key={`${item.title}-${item.company}`}>
