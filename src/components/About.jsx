@@ -27,13 +27,12 @@ function About() {
             <p>
               I&apos;m a Frontend and UI/UX Developer building modern, user-centric web applications
               with React.js, responsive layouts, and practical interface design. My work combines
-              clean frontend structure with backend integration, APIs, data visualization, and ML
-              fundamentals.
+              clean frontend structure with backend integration, APIs, and data visualization.
             </p>
           </header>
 
           <section className="about-editorial__skills-block">
-            <h3>Technical Skills</h3>
+            <h3>Technical Expertise</h3>
             <div className="about-editorial__skills" aria-label="Technical skills">
               {skillIcons.map(({ label, Icon }) => (
                 <div className="about-editorial__skill" key={label} title={label}>
@@ -45,35 +44,36 @@ function About() {
           </section>
 
           <div className="about-editorial__details">
-            <section>
-              <h3>Education</h3>
+            <section className="about-editorial__detail-item">
+              <h3>Core Philosophy</h3>
               <p>
-                <strong>2023 - 2026</strong>
-                Bachelor of Computer Applications, Tecnia Institute of Advanced Studies, Delhi -
-                GGSIPU.
+                Focusing on clean code, performance optimization, and creating inclusive digital
+                experiences that bridge the gap between complex logic and intuitive design.
               </p>
             </section>
 
-            <section>
-              <h3>Experience</h3>
+            <section className="about-editorial__detail-item">
+              <h3>Learning Journey</h3>
               <p>
-                <strong>Acmegrade</strong>
-                Front-End Developer Intern.
-              </p>
-              <p>
-                <strong>Agratas</strong>
-                Machine Learning Intern.
+                Currently pursuing BCA (2023-2026), continuously expanding my knowledge in
+                scalable React architectures, state management, and modern styling solutions.
               </p>
             </section>
 
-            <section>
-              <h3>Project Work</h3>
-              <p>E-commerce, PAW pet adoption, toxicology awareness, and AirSense AQI platform.</p>
+            <section className="about-editorial__detail-item">
+              <h3>Workflow</h3>
+              <p>
+                Embracing a rapid-iteration approach with a focus on modular component design,
+                responsive first principles, and thorough cross-browser validation.
+              </p>
             </section>
 
-            <section>
-              <h3>Communication</h3>
-              <p>English, Hindi, documentation, reports, UI presentation, and collaboration.</p>
+            <section className="about-editorial__detail-item">
+              <h3>Tech Interests</h3>
+              <p>
+                Passionate about WebGL, interactive 3D experiences, data-driven dashboards, and 
+                pushing the boundaries of what's possible on the modern web.
+              </p>
             </section>
           </div>
         </div>
