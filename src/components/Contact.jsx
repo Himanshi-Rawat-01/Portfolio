@@ -40,7 +40,7 @@ function Contact({ links }) {
   return (
     <div className="section-block contact">
       <motion.div className="section-heading" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <motion.h2 variants={fadeUp}>Let&apos;s Architect the Future.</motion.h2>
+        <motion.h2 variants={fadeUp}>Got an Idea? Let&apos;s Bring It to Life.</motion.h2>
         <motion.p className="contact__intro" variants={fadeUp}>
           Transforming complex visions into high-performance digital realities. 
           Open for strategic partnerships and world-class collaborations.
