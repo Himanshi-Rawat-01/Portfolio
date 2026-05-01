@@ -1,0 +1,18 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="128" cy="128" r="102" stroke="url(#ring)" stroke-width="4.5"/>
+  <path d="M78 162L112 90M95 126H138M128 166L142 96" stroke="url(#gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M142 104C166 96 194 103 194 118C194 132 168 140 143 140" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M143 140L192 166" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="gold" x1="66" y1="74" x2="203" y2="182" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A06B47"/>
+      <stop offset="0.45" stop-color="#E8D0B8"/>
+      <stop offset="1" stop-color="#9A6642"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="26" y1="26" x2="230" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8D5A39"/>
+      <stop offset="0.52" stop-color="#E4CCB2"/>
+      <stop offset="1" stop-color="#865636"/>
+    </linearGradient>
+  </defs>
+</svg>

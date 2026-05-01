@@ -6,7 +6,6 @@ import About from '../components/About';
 import Services from '../components/Services';
 import Projects from '../components/Projects';
 import Experience from '../components/Experience';
-import CtaBanner from '../components/CtaBanner';
 import Contact from '../components/Contact';
 import { contactLinks, experienceTimeline, projects, services } from '../data/portfolioData';
 
@@ -49,9 +48,6 @@ function HomePage({ theme }) {
           <Experience experience={experienceTimeline} />
         </motion.section>
 
-        <motion.section className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-          <CtaBanner />
-        </motion.section>
 
         <motion.section id="contact" className="section section-contact" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Contact links={contactLinks} />
