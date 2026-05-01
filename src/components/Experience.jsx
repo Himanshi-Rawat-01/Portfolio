@@ -8,7 +8,7 @@ function Experience({ experience }) {
         <h2 style={{ fontSize: "clamp(3rem, 6vw, 5rem)", marginTop: "0rem" }}>Experience</h2>
       </div>
 
-      <div className="experience-stack-wrapper" style={{ minHeight: '250vh', position: 'relative' }}>
+      <div className="experience-stack-wrapper" style={{ minHeight: '180vh', position: 'relative' }}>
         <ScrollStack 
           useWindowScroll={true} 
           itemDistance={200} 

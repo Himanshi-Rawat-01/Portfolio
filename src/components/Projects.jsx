@@ -20,7 +20,7 @@ function Projects({ projects }) {
     <div 
       className="section-block projects-section card" 
       style={{ 
-        padding: '6rem 0', 
+        padding: '2rem 0 6rem', 
         overflow: 'hidden', 
         width: '100%', 
         borderRadius: '0', 

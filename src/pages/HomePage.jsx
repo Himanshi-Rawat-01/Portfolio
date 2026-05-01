@@ -34,7 +34,7 @@ function HomePage({ theme }) {
           <SkillMarquee />
         </motion.section>
 
-        <motion.section id="services" className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+        <motion.section id="services" className="section" style={{ paddingBottom: 0 }} variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Services services={services} />
         </motion.section>
       </motion.main>
@@ -44,10 +44,9 @@ function HomePage({ theme }) {
       </motion.section>
 
       <motion.main initial={false} animate={{ opacity: 1 }} className="app-shell" style={{ paddingTop: 0 }}>
-        <motion.section id="experience" className="section" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+        <motion.section id="experience" className="section" style={{ paddingBottom: 0 }} variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Experience experience={experienceTimeline} />
         </motion.section>
-
 
         <motion.section id="contact" className="section section-contact" variants={sectionTransition} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <Contact links={contactLinks} />
