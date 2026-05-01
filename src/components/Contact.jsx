@@ -40,10 +40,10 @@ function Contact({ links }) {
   return (
     <div className="section-block contact">
       <motion.div className="section-heading" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-        <motion.h2 variants={fadeUp}>Got an Idea? Let&apos;s Bring It to Life.</motion.h2>
+        <motion.h2 variants={fadeUp}>Let&apos;s Talk: Transforming Visions into <br /> World-Class Realities</motion.h2>
         <motion.p className="contact__intro" variants={fadeUp}>
-          I&apos;m always excited to collaborate on innovative projects and digital experiences. 
-          Whether you have a specific vision or just want to explore what&apos;s possible, let&apos;s start a conversation.
+          Specializing in the intersection of sophisticated design and high-performance engineering. 
+          I partner with forward-thinking teams to architect scalable, cinematic digital experiences that define the next generation of the web.
         </motion.p>
       </motion.div>
 
