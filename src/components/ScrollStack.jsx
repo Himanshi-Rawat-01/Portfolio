@@ -98,9 +98,11 @@ const ScrollStack = ({
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
-      const pinEnd = endElementTop - containerHeight / 2 - cardHeight / 2;
+      const pinEnd = endElementTop - containerHeight / 2 - cardHeight / 2 + (containerHeight * 0.6); // Added 60vh hold duration
 
-      const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
+      // Delay scaling until the card is 30% through its stack duration for a more "stacked" feel
+      const scaleStartTrigger = triggerStart + (triggerEnd - triggerStart) * 0.3;
+      const scaleProgress = calculateProgress(scrollTop, scaleStartTrigger, triggerEnd);
       const targetScale = baseScale + i * itemScale;
       const scale = 1 - scaleProgress * (1 - targetScale);
       const rotation = rotationAmount ? i * rotationAmount * scaleProgress : 0;
@@ -110,7 +112,7 @@ const ScrollStack = ({
         let topCardIndex = 0;
         for (let j = 0; j < cardsRef.current.length; j++) {
           const jCardTop = getElementOffset(cardsRef.current[j]);
-          const jTriggerStart = jCardTop - stackPositionPx - itemStackDistance * j;
+          const jTriggerStart = jCardTop - parsePercentage(stackPosition, containerHeight) + (cardsRef.current[j].offsetHeight / 2) - itemStackDistance * j;
           if (scrollTop >= jTriggerStart) {
             topCardIndex = j;
           }
@@ -189,6 +191,17 @@ const ScrollStack = ({
   }, [updateCardTransforms]);
 
   const setupLenis = useCallback(() => {
+    // If a global Lenis instance exists and we're using window scroll, hook into it instead of creating a new one
+    if (useWindowScroll && window.__lenis__) {
+      const lenis = window.__lenis__;
+      lenis.on('scroll', handleScroll);
+      lenisRef.current = lenis;
+      
+      // Force an initial update
+      updateCardTransforms(lenis.scroll);
+      return lenis;
+    }
+
     if (useWindowScroll) {
       const lenis = new Lenis({
         duration: 1.2,
@@ -245,7 +258,7 @@ const ScrollStack = ({
       lenisRef.current = lenis;
       return lenis;
     }
-  }, [handleScroll, useWindowScroll]);
+  }, [handleScroll, useWindowScroll, updateCardTransforms]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;

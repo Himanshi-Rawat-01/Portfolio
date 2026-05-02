@@ -54,7 +54,7 @@ function HomePage({ theme }) {
       </motion.section>
 
       <motion.main initial={false} animate={{ opacity: 1 }} className="app-shell" style={{ paddingTop: 0 }}>
-        <motion.section id="experience" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
+        <motion.section id="experience" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.35 }}>
           <Experience experience={experienceTimeline} />
         </motion.section>
 
