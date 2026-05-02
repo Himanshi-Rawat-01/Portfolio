@@ -80,10 +80,7 @@ const ScrollStack = ({
     const { containerHeight } = getScrollData();
     const scrollTop = scrollVal !== undefined ? scrollVal : (useWindowScroll ? window.scrollY : scrollerRef.current.scrollTop);
     
-    const endElement = useWindowScroll
-      ? document.querySelector('.scroll-stack-end')
-      : scrollerRef.current?.querySelector('.scroll-stack-end');
-
+    const endElement = scrollerRef.current?.querySelector('.scroll-stack-end');
     const endElementTop = endElement ? getElementOffset(endElement) : 0;
 
     cardsRef.current.forEach((card, i) => {
@@ -98,7 +95,17 @@ const ScrollStack = ({
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
-      const pinEnd = endElementTop - containerHeight / 2 - cardHeight / 2 + (containerHeight * 0.6); // Added 60vh hold duration
+      
+      // Calculate a safe pinEnd that prevents the stack from leaving the scroller container
+      const scroller = scrollerRef.current;
+      const scrollerBottom = getElementOffset(scroller) + scroller.offsetHeight;
+      const stackHeight = cardHeight + (cardsRef.current.length - 1) * itemStackDistance;
+      const safePinEnd = scrollerBottom - parsePercentage(stackPosition, containerHeight) - stackHeight + cardHeight/2;
+
+      const pinEnd = Math.min(
+        endElementTop - containerHeight / 2 - cardHeight / 2 + (containerHeight * 0.3), // Reduced hold to 30vh for better balance
+        safePinEnd
+      );
 
       // Delay scaling until the card is 30% through its stack duration for a more "stacked" feel
       const scaleStartTrigger = triggerStart + (triggerEnd - triggerStart) * 0.3;
