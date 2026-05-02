@@ -297,9 +297,25 @@ const ScrollStack = ({
       card.style.zIndex = i + 1; // Ensure newer cards stack on top
     });
 
+    const updateOffsets = () => {
+      originalOffsetsRef.current = cardsRef.current.map(card => getElementOffset(card));
+      updateCardTransforms();
+    };
+
+    const resizeObserver = new ResizeObserver(updateOffsets);
+    cardsRef.current.forEach(card => resizeObserver.observe(card));
+    // Also observe the inner container in case other content changes
+    const inner = scroller.querySelector('.scroll-stack-inner');
+    if (inner) resizeObserver.observe(inner);
+
     setupLenis();
 
     updateCardTransforms();
+
+    // Extra safety: recalculate after a short delay and on window load
+    // This handles cases where images might load and shift the layout
+    const timeoutId = setTimeout(updateOffsets, 1000);
+    window.addEventListener('load', updateOffsets);
 
     return () => {
       if (animationFrameRef.current) {
@@ -308,6 +324,9 @@ const ScrollStack = ({
       if (lenisRef.current) {
         lenisRef.current.destroy();
       }
+      resizeObserver.disconnect();
+      window.removeEventListener('load', updateOffsets);
+      clearTimeout(timeoutId);
       stackCompletedRef.current = false;
       cardsRef.current = [];
       transformsCache.clear();
@@ -326,7 +345,8 @@ const ScrollStack = ({
     useWindowScroll,
     onStackComplete,
     setupLenis,
-    updateCardTransforms
+    updateCardTransforms,
+    getElementOffset
   ]);
 
   return (
