@@ -209,11 +209,20 @@ function About() {
               <div style={{ overflow: 'hidden' }}>
                 <motion.h2 variants={lineVariants} custom={1}>Himanshi Rawat</motion.h2>
               </div>
+              <div style={{ overflow: 'hidden' }}>
+                <motion.h3 
+                  variants={lineVariants} 
+                  custom={2} 
+                  style={{ color: 'var(--color-primary, #5ad3ff)', marginTop: '0.25rem', fontSize: '1.25rem', fontWeight: '500' }}
+                >
+                  Full Stack Developer
+                </motion.h3>
+              </div>
             </div>
             <div className="about-editorial__bio">
               {BIO_LINES.map((text, i) => (
                 <div key={i} style={{ overflow: 'hidden' }}>
-                  <motion.p variants={lineVariants} custom={i + 2}>{text}</motion.p>
+                  <motion.p variants={lineVariants} custom={i + 3}>{text}</motion.p>
                 </div>
               ))}
             </div>
