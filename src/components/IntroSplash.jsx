@@ -22,8 +22,8 @@ function IntroSplash({ sectionRef }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="intro-splash__kicker">Himanshi Rawat</p>
-          <h1 className="intro-splash__title">Full Stack Developer</h1>
+          <p className="intro-splash__kicker">Welcome to my</p>
+          <h1 className="intro-splash__title">Portfolio</h1>
         </motion.div>
       </div>
     </section>
