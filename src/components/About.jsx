@@ -153,8 +153,9 @@ function About() {
   };
 
   const BIO_LINES = [
-    'I am a passionate Frontend Developer and UI/UX enthusiast currently pursuing my Bachelor of Computer Applications (2023\u20132026). I love turning complex problems into simple, beautiful, and intuitive digital experiences.',
-    'My journey in tech is driven by a curiosity for how things work and a desire to build products that make a difference. I specialize in React.js and modern web technologies, always keeping the user at the heart of my work.',
+    'Full Stack Web Developer experienced in designing, developing, and deploying end-to-end web applications, with a strong focus on frontend development and UI/UX design.',
+    'Skilled in building responsive, visually appealing, and user-centric interfaces using React, while supporting application functionality with Node.js and Express.js.',
+    'Focused on creating intuitive user experiences, optimizing performance, and delivering seamless interactions across devices.',
   ];
 
   return (
