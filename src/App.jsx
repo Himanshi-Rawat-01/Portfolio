@@ -12,6 +12,7 @@ import Services from './components/Services';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import EnhancedSectionScroller from './components/EnhancedSectionScroller';
 import { contactLinks, experienceTimeline, projects, services } from './data/portfolioData';
 import Lenis from 'lenis';
 
@@ -147,6 +148,7 @@ function App() {
         theme={theme}
         toggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
       />
+      <EnhancedSectionScroller />
       <Navbar />
       {/* IntroSplash has its own sticky implementation */}
       <div style={{ zIndex: 1, position: 'relative' }}>
@@ -170,9 +172,10 @@ function App() {
 
       {/* Sticky Deck: Marquee */}
       <motion.section 
+        id="marquee"
         className="sticky-section" 
         style={{ zIndex: 3, minHeight: 'auto', padding: '10vh 0' }}
-        variants={sectionVariants} 
+        variants={sectionVariants}  
         initial="hidden" 
         whileInView="visible" 
         viewport={{ once: false, amount: 0.4 }}
@@ -213,7 +216,8 @@ function App() {
       {/* Normal Scrolling Block: Experience (Must not be sticky, it has its own ScrollStack) */}
       <section 
         id="experience" 
-        style={{ zIndex: 6, position: 'relative', background: 'var(--bg-primary)', paddingTop: '8rem', paddingBottom: '4rem' }}
+        className="section"
+        style={{ zIndex: 6, position: 'relative', paddingTop: '8rem', paddingBottom: '4rem' }}
       >
         <div className="app-shell">
           <Experience experience={experienceTimeline} />
@@ -224,7 +228,7 @@ function App() {
       <motion.section 
         id="contact" 
         className="section section-contact" 
-        style={{ zIndex: 7, position: 'relative', background: 'var(--bg-primary)' }}
+        style={{ zIndex: 7, position: 'relative' }}
         variants={sectionVariants} 
         initial="hidden" 
         whileInView="visible" 
