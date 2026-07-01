@@ -186,23 +186,6 @@ img {
   text-shadow: 0 12px 45px rgba(146, 106, 255, 0.28);
 }
 
-.sticky-section {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-  background: var(--bg-primary);
-  /* Depth effect over the previous section */
-  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-:root[data-theme='light'] .sticky-section {
-  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.08);
-}
-
 .section {
   padding-top: var(--section-gap);
   position: relative;
@@ -234,13 +217,6 @@ img {
 
 .section-heading h2 {
   animation: revealText 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: 0;
-  text-transform: none;
-  font-size: clamp(2rem, 3.8vw, 3.1rem);
 }
 
 @keyframes revealText {
@@ -252,6 +228,21 @@ img {
 .projects-section {
   gap: 0 !important;
 }
+
+
+.section-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.section-heading h2 {
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+}
+
+
 
 .card {
   position: relative;
