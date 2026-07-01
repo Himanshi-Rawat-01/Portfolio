@@ -186,6 +186,23 @@ img {
   text-shadow: 0 12px 45px rgba(146, 106, 255, 0.28);
 }
 
+.sticky-section {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  /* Depth effect over the previous section */
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+:root[data-theme='light'] .sticky-section {
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.08);
+}
+
 .section {
   padding-top: var(--section-gap);
   position: relative;

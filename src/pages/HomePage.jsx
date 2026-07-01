@@ -24,48 +24,98 @@ const sectionVariants = {
   },
 };
 
-const childVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
-};
-
 function HomePage({ theme }) {
   return (
     <>
       <Navbar />
-      <IntroSplash />
+      {/* IntroSplash has its own sticky implementation */}
+      <div style={{ zIndex: 1, position: 'relative' }}>
+        <IntroSplash />
+      </div>
 
-      <motion.main key={theme} className="app-shell" initial={false} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-        <motion.section id="about" className="section" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.4 }}>
+      {/* Sticky Deck: About */}
+      <motion.section 
+        id="about" 
+        className="sticky-section" 
+        style={{ zIndex: 2 }}
+        variants={sectionVariants} 
+        initial="hidden" 
+        whileInView="visible" 
+        viewport={{ once: false, amount: 0.4 }}
+      >
+        <div className="app-shell" style={{ margin: '0 auto', width: '100%' }}>
           <About />
-        </motion.section>
+        </div>
+      </motion.section>
 
-        <motion.section className="section section-marquee" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.4 }}>
-          <SkillMarquee />
-        </motion.section>
+      {/* Sticky Deck: Marquee */}
+      <motion.section 
+        className="sticky-section" 
+        style={{ zIndex: 3, minHeight: 'auto', padding: '10vh 0' }}
+        variants={sectionVariants} 
+        initial="hidden" 
+        whileInView="visible" 
+        viewport={{ once: false, amount: 0.4 }}
+      >
+        {/* Marquee breaks out of container, so no app-shell needed here */}
+        <SkillMarquee />
+      </motion.section>
 
-        <motion.section id="services" className="section" style={{ paddingBottom: 0 }} variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
+      {/* Sticky Deck: Services */}
+      <motion.section 
+        id="services" 
+        className="sticky-section" 
+        style={{ zIndex: 4 }}
+        variants={sectionVariants} 
+        initial="hidden" 
+        whileInView="visible" 
+        viewport={{ once: false, amount: 0.35 }}
+      >
+        <div className="app-shell" style={{ margin: '0 auto', width: '100%' }}>
           <Services services={services} />
-        </motion.section>
-      </motion.main>
+        </div>
+      </motion.section>
 
-      <motion.section id="projects" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.3 }}>
+      {/* Sticky Deck: Projects */}
+      <motion.section 
+        id="projects" 
+        className="sticky-section" 
+        style={{ zIndex: 5, display: 'block', overflow: 'visible' }}
+        variants={sectionVariants} 
+        initial="hidden" 
+        whileInView="visible" 
+        viewport={{ once: false, amount: 0.3 }}
+      >
+        {/* Projects has its own full-width structure */}
         <Projects projects={projects} />
       </motion.section>
 
-      <motion.main initial={false} animate={{ opacity: 1 }} className="app-shell" style={{ paddingTop: 0 }}>
-        {/* Experience: no hidden initial state — ScrollStack reads real DOM offsets on mount */}
-        <section id="experience" className="section" style={{ paddingBottom: 0 }}>
+      {/* Normal Scrolling Block: Experience (Must not be sticky, it has its own ScrollStack) */}
+      <section 
+        id="experience" 
+        style={{ zIndex: 6, position: 'relative', background: 'var(--bg-primary)' }}
+      >
+        <div className="app-shell" style={{ paddingTop: 0 }}>
           <Experience experience={experienceTimeline} />
-        </section>
+        </div>
+      </section>
 
-        <motion.section id="contact" className="section section-contact" variants={sectionVariants} initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.35 }}>
+      {/* Normal Scrolling Block: Contact */}
+      <motion.section 
+        id="contact" 
+        className="section section-contact" 
+        style={{ zIndex: 7, position: 'relative', background: 'var(--bg-primary)' }}
+        variants={sectionVariants} 
+        initial="hidden" 
+        whileInView="visible" 
+        viewport={{ once: false, amount: 0.35 }}
+      >
+        <div className="app-shell">
           <Contact links={contactLinks} />
-        </motion.section>
-      </motion.main>
+        </div>
+      </motion.section>
     </>
   );
 }
 
 export default HomePage;
-
