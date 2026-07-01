@@ -9,7 +9,7 @@ import './GhostCursor.css';
 const GhostCursor = ({
   className,
   style,
-  trailLength = 50,
+  trailLength = 25,
   inertia = 0.5,
   grainIntensity = 0.05,
   bloomStrength = 0.1,

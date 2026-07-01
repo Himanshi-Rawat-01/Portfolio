@@ -86,9 +86,10 @@ export default function LiquidEther({
       init(container) {
         this.container = container;
         const isLowPerf = document.documentElement.dataset.perf === 'low';
-        this.pixelRatio = Math.min(window.devicePixelRatio || 1, isLowPerf ? 1.0 : 1.35);
+        // Cap at 1.0 — fluid sim doesn't need high DPR, saves significant GPU work (1.35^2 = 82% more pixels)
+        this.pixelRatio = Math.min(window.devicePixelRatio || 1, isLowPerf ? 0.75 : 1.0);
         this.resize();
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
         this.renderer.autoClear = false;
         this.renderer.setClearColor(new THREE.Color(0x000000), 0);
         this.renderer.setPixelRatio(this.pixelRatio);

@@ -1,35 +1,25 @@
 .scroll-stack-scroller {
   position: relative;
   width: 100%;
-  height: 100%;
   overflow: visible;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scroll-stack-scroller::-webkit-scrollbar {
-  display: none;
 }
 
 .scroll-stack-inner {
-  padding: 0vh 1rem 2rem;
-  min-height: 100vh;
+  padding: 0 1rem;
+  /* Bottom padding gives scroll room for the last card to reach its final stacked position */
+  padding-bottom: 30vh;
 }
 
 .scroll-stack-card {
   transform-origin: top center;
-  will-change: transform, filter;
   backface-visibility: hidden;
-  transform-style: preserve-3d;
   width: 100%;
   margin: 20px 0;
   padding: 3rem 2.5rem;
   border-radius: 28px;
   box-sizing: border-box;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   position: relative;
-  
+
   /* Portfolio Theme integration */
   background: var(--surface);
   border: 1px solid var(--border);
@@ -37,14 +27,15 @@
   box-shadow: var(--shadow-card);
 }
 
+/* End sentinel gives the pinEnd calculation a concrete document position */
 .scroll-stack-end {
   width: 100%;
-  height: 1px;
+  height: 40vh;
 }
 
 @media (max-width: 768px) {
   .scroll-stack-inner {
-    padding: 5vh 0 20rem;
+    padding: 0 0 20vh;
   }
   .scroll-stack-card {
     padding: 2rem 1.5rem;
