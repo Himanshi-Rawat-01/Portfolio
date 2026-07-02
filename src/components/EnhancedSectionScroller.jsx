@@ -42,8 +42,6 @@ export default function EnhancedSectionScroller() {
 
   useEffect(() => {
     const onWheel = (e) => {
-      if (isInsideExperience()) return;
-
       accDeltaRef.current += e.deltaY;
 
       clearTimeout(timerRef.current);
@@ -53,6 +51,12 @@ export default function EnhancedSectionScroller() {
 
       if (Math.abs(accDeltaRef.current) < THRESHOLD) return;
       if (cooldownRef.current) return;
+
+      if (isInsideExperience()) {
+        // Reset so it doesn't instantly snap when exiting
+        accDeltaRef.current = 0;
+        return;
+      }
 
       const direction = accDeltaRef.current > 0 ? 1 : -1;
       accDeltaRef.current = 0;

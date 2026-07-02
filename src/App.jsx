@@ -17,16 +17,16 @@ import { contactLinks, experienceTimeline, projects, services } from './data/por
 import Lenis from 'lenis';
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 80, scale: 0.95 },
+  hidden: { opacity: 0, y: 60, scale: 0.97 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 1.2,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1],
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
+      staggerChildren: 0.07,
+      delayChildren: 0.04,
     },
   },
 };
@@ -42,6 +42,10 @@ function App() {
     const memory = navigator.deviceMemory ?? 8;
     return cores <= 4 || memory <= 4;
   });
+  const shouldUseAdvancedEffects = useMemo(
+    () => !prefersReducedMotion && !isMobile && !isLowPerformanceDevice,
+    [isLowPerformanceDevice, isMobile, prefersReducedMotion],
+  );
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -65,10 +69,10 @@ function App() {
   // Expose a global Lenis instance for SectionScroller to use
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: t => 1 - Math.pow(1 - t, 4),
+      duration: 1.6,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.1,
       touchMultiplier: 2,
       syncTouch: false,
     });
@@ -86,41 +90,28 @@ function App() {
   const liquidColors = useMemo(() => ['#5227FF', '#FF9FFC', '#B19EEF'], []);
   const liquidConfig = useMemo(
     () => {
-      if (prefersReducedMotion) {
+      if (prefersReducedMotion || isMobile || isLowPerformanceDevice) {
         return {
-          mouseForce: 8,
-          cursorSize: 58,
+          mouseForce: 6,
+          cursorSize: 48,
           iterationsViscous: 4,
           iterationsPoisson: 4,
-          resolution: 0.15,
-          autoIntensity: 0.85,
+          resolution: 0.16,
+          autoIntensity: 0.65,
           autoDemo: false,
-          autoSpeed: 0.35,
-        };
-      }
-
-      if (isMobile || isLowPerformanceDevice) {
-        return {
-          mouseForce: 10,
-          cursorSize: 66,
-          iterationsViscous: 6,
-          iterationsPoisson: 6,
-          resolution: 0.2,
-          autoIntensity: 1.05,
-          autoDemo: true,
-          autoSpeed: 0.4,
+          autoSpeed: 0.25,
         };
       }
 
       return {
-        mouseForce: 14,
-        cursorSize: 80,
-        iterationsViscous: 8,
-        iterationsPoisson: 10,
-        resolution: 0.25,
-        autoIntensity: 1.25,
+        mouseForce: 10,
+        cursorSize: 64,
+        iterationsViscous: 6,
+        iterationsPoisson: 7,
+        resolution: 0.2,
+        autoIntensity: 0.85,
         autoDemo: true,
-        autoSpeed: 0.45,
+        autoSpeed: 0.3,
       };
     },
     [isLowPerformanceDevice, isMobile, prefersReducedMotion],
@@ -129,26 +120,37 @@ function App() {
   return (
     <>
       <div className="app-background" aria-hidden="true">
-        <LiquidEther
-          colors={liquidColors}
-          mouseForce={liquidConfig.mouseForce}
-          cursorSize={liquidConfig.cursorSize}
-          iterationsViscous={liquidConfig.iterationsViscous}
-          iterationsPoisson={liquidConfig.iterationsPoisson}
-          resolution={liquidConfig.resolution}
-          BFECC={false}
-          autoDemo={liquidConfig.autoDemo}
-          autoSpeed={liquidConfig.autoSpeed}
-          autoIntensity={liquidConfig.autoIntensity}
-          className="app-background__ether"
-        />
+        {shouldUseAdvancedEffects ? (
+          <LiquidEther
+            colors={liquidColors}
+            mouseForce={liquidConfig.mouseForce}
+            cursorSize={liquidConfig.cursorSize}
+            iterationsViscous={liquidConfig.iterationsViscous}
+            iterationsPoisson={liquidConfig.iterationsPoisson}
+            resolution={liquidConfig.resolution}
+            BFECC={false}
+            autoDemo={liquidConfig.autoDemo}
+            autoSpeed={liquidConfig.autoSpeed}
+            autoIntensity={liquidConfig.autoIntensity}
+            className="app-background__ether"
+          />
+        ) : (
+          <div
+            className="app-background__fallback"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle at top, rgba(82,39,255,0.16), transparent 55%)',
+            }}
+          />
+        )}
       </div>
       <ScrollProgress />
       <ThemeToggle
         theme={theme}
         toggleTheme={() => setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'))}
       />
-      <EnhancedSectionScroller />
+      {shouldUseAdvancedEffects ? <EnhancedSectionScroller /> : null}
       <Navbar />
       {/* IntroSplash has its own sticky implementation */}
       <div style={{ zIndex: 1, position: 'relative' }}>
@@ -207,7 +209,7 @@ function App() {
         variants={sectionVariants} 
         initial="hidden" 
         whileInView="visible" 
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.18 }}
       >
         {/* Projects has its own full-width structure */}
         <Projects projects={projects} />
@@ -238,7 +240,7 @@ function App() {
           <Contact links={contactLinks} />
         </div>
       </motion.section>
-      <CustomCursor />
+      {shouldUseAdvancedEffects ? <CustomCursor /> : null}
     </>
   );
 }

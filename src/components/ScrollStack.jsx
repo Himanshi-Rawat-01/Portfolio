@@ -199,31 +199,11 @@ const ScrollStack = ({
     }
 
     if (useWindowScroll) {
-      // No global Lenis — create our own
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        touchMultiplier: 2,
-        infinite: false,
-        wheelMultiplier: 1,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075
-      });
-
-      scrollHandlerRef.current = handleScroll;
-      lenis.on('scroll', scrollHandlerRef.current);
-
-      const raf = time => {
-        lenis.raf(time);
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
-      animationFrameRef.current = requestAnimationFrame(raf);
-
-      lenisRef.current = lenis;
-      lenisOwnedRef.current = true;
-      return lenis;
+      // Fall back to native scroll listener to avoid creating a conflicting second Lenis
+      scrollHandlerRef.current = () => handleScroll();
+      window.addEventListener('scroll', scrollHandlerRef.current, { passive: true });
+      requestAnimationFrame(() => updateCardTransforms());
+      return null;
     } else {
       const scroller = scrollerRef.current;
       if (!scroller) return;
@@ -321,6 +301,8 @@ const ScrollStack = ({
         }
         lenisRef.current = null;
         lenisOwnedRef.current = false;
+      } else if (useWindowScroll && scrollHandlerRef.current) {
+        window.removeEventListener('scroll', scrollHandlerRef.current);
       }
       resizeObserver.disconnect();
       window.removeEventListener('load', updateOffsets);
