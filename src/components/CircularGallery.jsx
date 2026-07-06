@@ -99,6 +99,7 @@ class Media {
     gl,
     image,
     index,
+    dataIndex,
     length,
     renderer,
     scene,
@@ -115,6 +116,7 @@ class Media {
     this.gl = gl;
     this.image = image;
     this.index = index;
+    this.dataIndex = dataIndex;
     this.length = length;
     this.renderer = renderer;
     this.scene = scene;
@@ -358,6 +360,7 @@ class App {
         gl: this.gl,
         image: data.image,
         index,
+        dataIndex: index % this.galleryItems.length,
         length: this.mediasImages.length,
         renderer: this.renderer,
         scene: this.scene,
@@ -411,7 +414,7 @@ class App {
     let closestMedia = null;
     let minDistance = Infinity;
 
-    this.medias.forEach((media, index) => {
+    this.medias.forEach((media) => {
       // The current position of the plane's center in the 3D scene
       const px = media.plane.position.x;
       const py = media.plane.position.y;
@@ -430,14 +433,13 @@ class App {
          const dist = Math.sqrt(dx * dx + dy * dy);
          if (dist < minDistance) {
            minDistance = dist;
-           closestMedia = { index };
+           closestMedia = media;
          }
       }
     });
     
     if (closestMedia) {
-       const dataIndex = closestMedia.index % this.galleryItems.length;
-       this.onClick(this.galleryItems[dataIndex], dataIndex);
+       this.onClick(this.galleryItems[closestMedia.dataIndex], closestMedia.dataIndex);
     }
   }
 

@@ -13,7 +13,8 @@ function Projects({ projects }) {
   }));
 
   const handleProjectClick = (item, index) => {
-    setSelectedProject(projects[index]);
+    const selected = projects.find((project) => project.title === item.text) || projects[index];
+    setSelectedProject(selected);
   };
 
   return (

@@ -1,6 +1,7 @@
 import { FaCss3Alt, FaHtml5, FaJs, FaPhp, FaPython, FaReact } from 'react-icons/fa';
 import { SiFlask, SiMysql } from 'react-icons/si';
 import aqiDashboardImage from '../assets/projects/aqi-dashboard.png';
+import dentalSiteImage from '../assets/projects/Dental-site.png';
 import ecommerceImage from '../assets/projects/ecommerce-website.svg';
 import environmentImage from '../assets/projects/enviroaware.png';
 import pawImage from '../assets/projects/paw-adoption.svg';
@@ -58,6 +59,15 @@ export const projects = [
     stack: ['React.js', 'Flask', 'Pandas', 'REST APIs'],
     github: 'https://github.com/himanshi-rawat-01/aqi-monitor',
     live: 'https://aqi-monitor-flax.vercel.app/',
+  },
+  {
+    title: 'Dental Care Website',
+    category: 'Healthcare Clinic Landing Page',
+    image: dentalSiteImage,
+    description:
+      'A polished dental clinic website with modern sections, service highlights, appointment-focused UI, and responsive layouts for a professional online presence.',
+    stack: ['React.js', 'CSS', 'Responsive UI', 'Modern Design'],
+    live: 'https://dentail-site.vercel.app/',
   },
   {
     title: 'E-Commerce Website',
